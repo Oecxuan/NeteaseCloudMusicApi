@@ -1,17 +1,18 @@
 # 网易云音乐 API
 
-网易云音乐 Node.js API service
+网易云音乐 Node.js API service。
+
+权侵删，仅供个人学习使用。
 
 <p>
 <a href="https://www.npmjs.com/package/NeteaseCloudMusicApi"><img src="https://img.shields.io/npm/v/NeteaseCloudMusicApi.svg" alt="Version"></a>
 <a href="https://www.npmjs.com/package/NeteaseCloudMusicApi"><img src="https://img.shields.io/npm/l/NeteaseCloudMusicApi.svg" alt="License"></a>
-<a href="https://www.npmjs.com/package/NeteaseCloudMusicApi"><img src="https://img.shields.io/david/dev/binaryify/NeteaseCloudMusicApi.svg" alt="devDependencies" ></a>
-<a href="https://www.npmjs.com/package/NeteaseCloudMusicApi"><img src="https://img.shields.io/david/binaryify/NeteaseCloudMusicApi.svg" alt="devDependencies" ></a>
 <a href="https://codeclimate.com/github/Binaryify/NeteaseCloudMusicApi"><img src="https://codeclimate.com/github/Binaryify/NeteaseCloudMusicApi/badges/gpa.svg" /></a>
 </p>
 
 
 ## 灵感来自
+[Binaryify/NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)
 
 [disoul/electron-cloud-music](https://github.com/disoul/electron-cloud-music)
 
@@ -26,7 +27,10 @@
 
 需要 NodeJS 14+ 环境
 
+推荐使用Vercel部署，本项目主要修改均基于Vercel的部署场景。
+
 ## 安装
+
 
 ```shell
 $ git clone https://github.com/Oecxuan/NeteaseCloudMusicApi.git
@@ -53,20 +57,19 @@ windows 下使用 git-bash 或者 cmder 等终端执行以下命令:
 $ set PORT=4000 && node app.js
 ```
 
-## Vercel 部署
+## Vercel 部署 （重要）
 
-v4.0.8 加入了 Vercel 配置文件,可以直接在 Vercel 下部署了,不需要自己的服务器
+直接在 Vercel 下部署了,不需要自己的服务器
 
 ### 操作方法
 
 1. fork 此项目
 2. 在 Vercel 官网点击 `New Project`
 3. 点击 `Import Git Repository` 并选择你 fork 的此项目并点击`import`
-4. 点击 `PERSONAL ACCOUNT` 的 `select`
-5. 直接点`Continue`
-6. `PROJECT NAME`自己填,`FRAMEWORK PRESET` 选 `Other` 然后直接点 `Deploy` 接着等部署完成即可  
+4. `PROJECT NAME`自己填,`FRAMEWORK PRESET` 选 `Other` 然后直接点 `Deploy` 接着等部署完成即可  
+5. 在项目设置中添加自己的域名并解析，即可使用自己的域名访问。
 
-## 腾讯云 serverless 部署
+## 腾讯云 serverless 部署（由于腾讯云由于API 网关产品计划于 2025年6月30日停止服务，此方法已经失效）
 因 `Vercel` 在国内访问太慢,在此提供腾讯云 serverless 部署方法(注意:腾讯云 serverless 并不是免费的,前三个月有免费额度,之后收费)
 ### 操作方法
 1. fork 此项目
@@ -118,12 +121,12 @@ banner({ type:0 }).then(res=>{
 ```
 
 
-## 使用文档
+## 使用文档（已失效）
 
 [文档地址](http://docs.neteasecloudmusicapi.binaryify.com/#/) 
 
 
-![文档](https://raw.githubusercontent.com/Binaryify/NeteaseCloudMusicApi/master/static/docs.png)
+[文档](https://raw.githubusercontent.com/Binaryify/NeteaseCloudMusicApi/master/static/docs.png)
 
 
 ## 功能特性
@@ -399,18 +402,12 @@ banner({ type:0 }).then(res=>{
 269. 年度听歌报告
 270. 播客声音搜索
 
-## 更新日志
-
-[changelog](https://github.com/Binaryify/NeteaseCloudMusicApi/blob/master/CHANGELOG.MD)
 
 ## 单元测试
 
 ```shell
 $ npm test
 ```
-
-![单元测试](https://raw.githubusercontent.com/Binaryify/NeteaseCloudMusicApi/master/static/screenshot1.png)
-![单元测试](https://raw.githubusercontent.com/Binaryify/NeteaseCloudMusicApi/master/static/screenshot2.png)
 
 ## SDK
 
