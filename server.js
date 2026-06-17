@@ -131,7 +131,7 @@ async function checkVersion() {
  * @param {ModuleDefinition[]} [moduleDefs] Customized module definitions [advanced]
  * @returns {Promise<import("express").Express>} The server instance.
  */
-async function consturctServer(moduleDefs) {
+async function constructServer(moduleDefs) {
   const app = express()
   const { CORS_ALLOW_ORIGIN } = process.env
   app.set('trust proxy', true)
@@ -291,8 +291,7 @@ async function serveNcmApi(options) {
   const port = Number(options.port || process.env.PORT || '3000')
   const host = options.host || process.env.HOST || ''
 
-  const checkVersionSubmission =
-    options.checkVersion &&
+  if (options.checkVersion) {
     checkVersion().then(({ npmVersion, ourVersion, status }) => {
       if (status == VERSION_CHECK_RESULT.NOT_LATEST) {
         console.log(
@@ -300,20 +299,20 @@ async function serveNcmApi(options) {
         )
       }
     })
-  const constructServerSubmission = consturctServer(options.moduleDefs)
+  }
 
-  const [_, app] = await Promise.all([
-    checkVersionSubmission,
-    constructServerSubmission,
-  ])
+  const app = await constructServer(options.moduleDefs)
 
-  /** @type {import('express').Express & ExpressExtension} */
-  const appExt = app
-  appExt.server = app.listen(port, host, () => {
+  // Vercel 无服务器环境不需要 listen，由平台管理
+  if (process.env.VERCEL) {
+    return app
+  }
+
+  app.server = app.listen(port, host, () => {
     console.log(`server running @ http://${host ? host : 'localhost'}:${port}`)
   })
 
-  return appExt
+  return app
 }
 
 module.exports = {

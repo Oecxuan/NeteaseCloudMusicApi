@@ -69,22 +69,6 @@ $ set PORT=4000 && node app.js
 4. `PROJECT NAME`自己填,`FRAMEWORK PRESET` 选 `Other` 然后直接点 `Deploy` 接着等部署完成即可  
 5. 在项目设置中添加自己的域名并解析，即可使用自己的域名访问。
 
-## 腾讯云 serverless 部署（由于腾讯云由于API 网关产品计划于 2025年6月30日停止服务，此方法已经失效）
-因 `Vercel` 在国内访问太慢,在此提供腾讯云 serverless 部署方法(注意:腾讯云 serverless 并不是免费的,前三个月有免费额度,之后收费)
-### 操作方法
-1. fork 此项目
-2. 在腾讯云serverless应用管理页面( https://console.cloud.tencent.com/sls ),点击`新建应用`
-3. 顶部`创建方式`选择 `Web 应用`
-4. 选择 `Express框架`,点击底部`下一步按钮`
-5. 输入`应用名`,上传方式选择`代码仓库`,进行GitHub授权(如已授权可跳过这一步),代码仓库选择刚刚fork的项目
-6. 启动文件填入:
-```
-#!/bin/bash
-export PORT=9000
-/var/lang/node16/bin/node app.js
-``` 
-7. 点击`完成`,等待部署完成,点击`资源列表`的 `API网关` 里的 `URL`,正常情况会打开文档地址,点击文档`例子`可查看接口调用效果
-
 ## 可以在Node.js调用
 
 v3.31.0后支持Node.js调用,导入的方法为`module`内的文件名,返回内容包含`status`和`body`,`status`为状态码,`body`为请求返回内容,参考`module_example` 文件夹下的 `test.js`
@@ -119,14 +103,6 @@ banner({ type:0 }).then(res=>{
   console.log(res)
 })
 ```
-
-
-## 使用文档（已失效）
-
-[文档地址](http://docs.neteasecloudmusicapi.binaryify.com/#/) 
-
-
-[文档](https://raw.githubusercontent.com/Binaryify/NeteaseCloudMusicApi/master/static/docs.png)
 
 
 ## 功能特性

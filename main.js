@@ -2,21 +2,24 @@ const fs = require('fs')
 const path = require('path')
 const tmpPath = require('os').tmpdir()
 const { cookieToJson } = require('./util')
+const generateConfig = require('./generateConfig')
 
+// 确保 anonymous_token 文件存在（util/request.js 加载时会同步读取该文件）
 if (!fs.existsSync(path.resolve(tmpPath, 'anonymous_token'))) {
   fs.writeFileSync(path.resolve(tmpPath, 'anonymous_token'), '', 'utf-8')
 }
 
-let firstRun = true
+let initialized = false
 /** @type {Record<string, any>} */
-let obj = {}
+const moduleFns = {}
+
 fs.readdirSync(path.join(__dirname, 'module'))
   .reverse()
   .forEach((file) => {
     if (!file.endsWith('.js')) return
-    let fileModule = require(path.join(__dirname, 'module', file))
-    let fn = file.split('.').shift() || ''
-    obj[fn] = function (data = {}) {
+    const fileModule = require(path.join(__dirname, 'module', file))
+    const fn = file.split('.').shift() || ''
+    moduleFns[fn] = function (data = {}) {
       if (typeof data.cookie === 'string') {
         data.cookie = cookieToJson(data.cookie)
       }
@@ -26,14 +29,12 @@ fs.readdirSync(path.join(__dirname, 'module'))
           cookie: data.cookie ? data.cookie : {},
         },
         async (...args) => {
-          if (firstRun) {
-            firstRun = false
-            const generateConfig = require('./generateConfig')
+          if (!initialized) {
+            initialized = true
             await generateConfig()
           }
-          // 待优化
+          // 延迟加载 request，确保 anonymous_token 文件已就绪
           const request = require('./util/request')
-
           return request(...args)
         },
       )
@@ -45,5 +46,5 @@ fs.readdirSync(path.join(__dirname, 'module'))
  */
 module.exports = {
   ...require('./server'),
-  ...obj,
+  ...moduleFns,
 }

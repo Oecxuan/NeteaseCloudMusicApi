@@ -1,3 +1,4 @@
 #!/bin/bash
-export PORT=9000
-/var/lang/node16/bin/node app.js
+# 此文件已废弃（腾讯云 API 网关已于 2025年6月30日停止服务）
+# 请使用 Vercel 部署替代
+exit 0
